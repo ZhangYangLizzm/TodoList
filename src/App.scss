@@ -1,0 +1,41 @@
+.app {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+
+    &-header-mask {
+        position: fixed;
+        z-index: 1;
+        height: 200px;
+        width: 100%;
+        top: 0;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+
+    }
+
+    &-title {
+        width: 100%;
+        padding: 50px 0;
+        color: #E2E8F0;
+        text-align: center;
+        font-size: 50px;
+    }
+
+    .todo-add {
+        height: 200px;
+        position: fixed;
+        width: 100%;
+        bottom: 0px;
+        text-align: center;
+        z-index: 1;
+        background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+
+        img {
+            left: 50%;
+            top: 50%;
+            position: absolute;
+            cursor: pointer;
+        }
+    }
+}
