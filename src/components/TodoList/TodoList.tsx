@@ -7,7 +7,8 @@ import "./TodoList.scss"
 const TodoList: React.FC<TodoListProps> = ({ mockData, children, deleteTodo }) => {
     const scrollRef = useRef<HTMLDivElement>(null);
     const [selectedTodo, setSelectedTodo] = useState<number | null>(null);
-
+    const [collapse, setCollapse] = useState(false)
+    
     useEffect(() => {
         if (scrollRef.current) {
             scrollRef.current.scrollIntoView({
@@ -16,11 +17,11 @@ const TodoList: React.FC<TodoListProps> = ({ mockData, children, deleteTodo }) =
             });
         }
     }, [mockData]);
-    
+
     return (
         <div className="todo-list" >
             <IconDelete id="icon-delete" style={{ visibility: selectedTodo !== null ? 'visible' : "hidden" }} onClick={() => deleteTodo(selectedTodo!)} />
-            <IconTodoConfirm id="icon-todo-confirm" style={{ visibility: selectedTodo !== null ? 'visible' : "hidden" }} onClick={()=>setSelectedTodo(null)}/>
+            <IconTodoConfirm id="icon-todo-confirm" style={{ visibility: selectedTodo !== null ? 'visible' : "hidden" }} onClick={() => setSelectedTodo(null)} />
             <div>
                 {mockData.map((mockItem, index) => (
                     <div ref={index === mockData.length - 1 ? scrollRef : null} key={index} className={`todo-card ${selectedTodo === index ? 'todo-card-active' : ''}`} onClick={() => setSelectedTodo(index)}>
