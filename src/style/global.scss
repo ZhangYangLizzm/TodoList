@@ -18,10 +18,10 @@ h6 {
 }
 
 :root{
-    --svg--hover--color:rgb(81, 131, 196);
-    --button--hover--color:rgb(153, 185, 228);
+    --svg-hover-color:rgb(81 131 196);
+    --button-hover-color:rgb(153 185 228);
 }
 
 svg:hover path {
-    stroke: var(--svg--hover--color)
+    stroke: var(--svg-hover-color)
 }
