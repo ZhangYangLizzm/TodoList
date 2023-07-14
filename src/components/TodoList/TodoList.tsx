@@ -4,11 +4,10 @@ import { TodoListProps } from '../../types';
 import { IconDelete, IconTodoConfirm } from '@/components/Icon'
 import "./TodoList.scss"
 
-const TodoList: React.FC<TodoListProps> = ({ mockData, children, deleteTodo }) => {
+const TodoList: React.FC<TodoListProps> = ({ todoList, children, deleteTodo }) => {
     const scrollRef = useRef<HTMLDivElement>(null);
     const [selectedTodo, setSelectedTodo] = useState<number | null>(null);
-    const [collapse, setCollapse] = useState(false)
-    
+    const [expanded, setExpanded] = useState(true)
     useEffect(() => {
         if (scrollRef.current) {
             scrollRef.current.scrollIntoView({
@@ -16,16 +15,21 @@ const TodoList: React.FC<TodoListProps> = ({ mockData, children, deleteTodo }) =
                 block: 'start',
             });
         }
-    }, [mockData]);
+    }, [todoList]);
 
     return (
         <div className="todo-list" >
             <IconDelete id="icon-delete" style={{ visibility: selectedTodo !== null ? 'visible' : "hidden" }} onClick={() => deleteTodo(selectedTodo!)} />
             <IconTodoConfirm id="icon-todo-confirm" style={{ visibility: selectedTodo !== null ? 'visible' : "hidden" }} onClick={() => setSelectedTodo(null)} />
-            <div>
-                {mockData.map((mockItem, index) => (
-                    <div ref={index === mockData.length - 1 ? scrollRef : null} key={index} className={`todo-card ${selectedTodo === index ? 'todo-card-active' : ''}`} onClick={() => setSelectedTodo(index)}>
-                        <Todocard {...mockItem} />
+            <div className='todo-list-container'>
+                <button onClick={() => setExpanded(!expanded)} >折叠</button>
+                {/* <div>
+                    <input type="text" />
+                    <button>搜索</button>
+                </div> */}
+                {todoList.map((todoItem, index) => (
+                    <div ref={index === todoList.length - 1 ? scrollRef : null} key={index} className={`todo-card ${selectedTodo === index ? 'todo-card-active' : ''}`} onClick={() => setSelectedTodo(index)}>
+                        <Todocard {...todoItem} expanded={expanded} />
                     </div>
                 ))}
                 {children}

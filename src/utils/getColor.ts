@@ -1,4 +1,4 @@
-const getColor = (type: string) => {
+const getColor = (type: "priority"|"tag") => {
   let bgColor, fontColor;
   if (type === "priority") {
     bgColor = "#FEF2F2";

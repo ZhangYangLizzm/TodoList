@@ -4,7 +4,7 @@ import './TodoFrom.scss';
 export interface TodoFormData {
   title: string;
   content: string;
-  tag: string;
+  tags: string;
   priority: string;
 }
 export interface TodoFormRef {
@@ -14,14 +14,14 @@ export interface TodoFormRef {
 const TodoForm = forwardRef((_, ref: Ref<TodoFormRef>) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [tag, setTag] = useState('');
+  const [tags, setTag] = useState('');
   const [priority, setPriority] = useState('');
 
   const getFormData = () => {
     return {
       title,
       content,
-      tag,
+      tags,
       priority,
     }
   }
@@ -59,13 +59,12 @@ const TodoForm = forwardRef((_, ref: Ref<TodoFormRef>) => {
         id="content"
         placeholder='He needs vaccine shot too'
         value={content}
-        onChange={handleContentChange}
-      ></textarea>
+        onChange={handleContentChange} />
       <input
         type="text"
-        placeholder='Tags'
+        placeholder='Tags(支持以 、作为分隔生成多个Tag)'
         id="tags"
-        value={tag}
+        value={tags}
         onChange={handleTagsChange}
       />
       <div className='priority-button-group' >

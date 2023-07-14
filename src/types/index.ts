@@ -4,11 +4,12 @@ export interface TodoCardProps {
   title: string;
   content: string;
   priority: string
-  tag: string;
+  tags: string;
+  expanded:boolean
 }
 
 export interface TodoListProps {
-  mockData: TodoCardProps[]
+  todoList: TodoCardProps[]
   children: ReactNode,
   deleteTodo: (index: number) => void
 }

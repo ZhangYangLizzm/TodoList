@@ -7,7 +7,8 @@ import Footer from "./layout/Footer"
 import useTodoStore from "./store"
 import "./App.scss"
 function App() {
-  const { mockData, addTodo, deleteTodo } = useTodoStore()
+  const { getTodoList, addTodo, deleteTodo } = useTodoStore()
+  const todoList = getTodoList()
   const [isAdding, setIsAdding] = useState(false)
   const todoFormRef = useRef<TodoFormRef>(null)
   const onAdd = () => {
@@ -52,7 +53,7 @@ function App() {
       <Header />
       <main className="app-main">
         <h1 className='app-main-title'>Daily Todo</h1>
-        <TodoList mockData={mockData} deleteTodo={deleteTodo}>
+        <TodoList todoList={todoList} deleteTodo={deleteTodo}>
           {isAdding ? <TodoForm ref={todoFormRef} /> : null}
         </TodoList>
       </main>

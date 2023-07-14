@@ -1,7 +1,7 @@
 import React from 'react'
 import getColor from '../../utils/getColor'
 interface TagProps {
-    type: string,
+    type: "priority"|"tag",
     text: string
 }
 
