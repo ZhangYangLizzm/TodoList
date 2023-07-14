@@ -4,15 +4,19 @@ import { TodoCardProps } from '@/types';
 const useTodoStore = () => {
     const [mockData, setMockData] = useLocalStorage<TodoCardProps[]>('todolist', initMockData())
 
-    const getTodoList = () => {
-        return mockData
-    }
-
     const addTodo = (todo: TodoCardProps) => {
         setMockData([...mockData, todo])
     }
 
-    return { getTodoList, addTodo }
+    const deleteTodo = (index: number) => {
+        setMockData((prevMockData) => {
+            const updatedTodoList = [...prevMockData];
+            updatedTodoList.splice(index, 1);
+            return updatedTodoList;
+        });
+    };
+
+    return { mockData, addTodo, deleteTodo }
 }
 
 export default useTodoStore
