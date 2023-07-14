@@ -1,12 +1,11 @@
-import "./App.scss"
+import { useRef, useState } from "react"
 import TodoList from './components/TodoList/TodoList'
 import { IconAdd, IconConfirm, IconCancel } from '@/components/Icon'
-
+import TodoForm, { TodoFormData, TodoFormRef } from "./components/TodoCard/TodoForm"
 import Header from "./layout/Header"
 import Footer from "./layout/Footer"
-import { useRef, useState } from "react"
 import useTodoStore from "./store"
-import TodoForm, { TodoFormRef } from "./components/TodoCard/TodoForm"
+import "./App.scss"
 function App() {
   const { mockData, addTodo, deleteTodo } = useTodoStore()
   const [isAdding, setIsAdding] = useState(false)
@@ -18,7 +17,16 @@ function App() {
   const onConfirm = () => {
     const formData = todoFormRef.current?.getFormData() // 调用子组件的方法获取表单数据
     if (formData) {
-      addTodo(formData) // 在父组件中添加待办事项
+      for (const key in formData) {
+        if (!formData[key as keyof TodoFormData]) {
+          alert('请填写所有字段')
+          return
+        }
+      }
+      addTodo({
+        ...formData,
+        priority: `P${formData.priority}`
+      }) // 在父组件中添加待办事项
     }
     setIsAdding(false)
   }

@@ -1,7 +1,7 @@
 import { useState, ChangeEvent, forwardRef, useImperativeHandle, Ref } from 'react';
 import './TodoFrom.scss';
 
-interface TodoFormData {
+export interface TodoFormData {
   title: string;
   content: string;
   tag: string;
@@ -22,7 +22,7 @@ const TodoForm = forwardRef((_, ref: Ref<TodoFormRef>) => {
       title,
       content,
       tag,
-      priority: `P${priority}`,
+      priority,
     }
   }
   useImperativeHandle(ref, () => ({
