@@ -1,13 +1,11 @@
-interface Tag {
-  type: string;
-  content: string;
-}
+
 export interface TodoCardProps {
   title: string;
   content: string;
-  tags: Array<Tag>;
+  priority: string
+  tags: string[];
 }
 
-export interface TodoListProps{
-    mockData:TodoCardProps[]
+export interface TodoListProps {
+  mockData: TodoCardProps[]
 }

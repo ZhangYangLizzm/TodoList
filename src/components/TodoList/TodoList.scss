@@ -1,3 +1,48 @@
-.todo-list{
-    
+.todo-card {
+    background-color: #fff;
+    padding: 32px;
+    margin-bottom: 32px;
+    border-radius: 10px;
+    width: 445px;
+    transition: transform .2s cubic-bezier(0.39, 0.575, 0.565, 1);
+
+    .todo-tags {
+        display: flex;
+
+        .todo-tag {
+            border-radius: 8px;
+            padding: 5px 10px;
+            margin-right: 10px;
+        }
+    }
+
+    &:hover {
+        transform: scale(1.1);
+    }
+
+    &-active {
+        transform: scale(1.1);
+    }
+}
+
+.todo-list {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    #icon-delete,
+    #icon-todo-confirm {
+        position: fixed;
+    }
+
+    #icon-delete {
+        left: 100px;
+    }
+
+    #icon-todo-confirm {
+        right: 100px;
+    }
+
+  
+
 }

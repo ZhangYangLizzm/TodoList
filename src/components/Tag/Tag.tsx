@@ -1,16 +1,15 @@
 import React from 'react'
-import useColor from '../../utils/useColor'
-import './Tag.scss'
+import getColor from '../../utils/getColor'
 interface TagProps {
     type: string,
-    content: string
+    text: string
 }
 
-const Tag: React.FC<TagProps> = ({ type, content }) => {
-    const { bgColor, fontColor } = useColor(type)
+const Tag: React.FC<TagProps> = ({ type, text }) => {
+    const { bgColor, fontColor } = getColor(type)
     return (
         <div className='todo-tag' style={{ backgroundColor: bgColor }}>
-            <span style={{ color: fontColor }}>{content}</span>
+            <span style={{ color: fontColor }}>{text}</span>
         </div >
     )
 }
