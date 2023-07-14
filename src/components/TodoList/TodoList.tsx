@@ -20,7 +20,7 @@ const TodoList: React.FC<TodoListProps> = ({ mockData, children, deleteTodo }) =
     return (
         <div className="todo-list" >
             <IconDelete id="icon-delete" style={{ visibility: selectedTodo !== null ? 'visible' : "hidden" }} onClick={() => deleteTodo(selectedTodo!)} />
-            <IconTodoConfirm id="icon-todo-confirm" style={{ visibility: selectedTodo !== null ? 'visible' : "hidden" }} />
+            <IconTodoConfirm id="icon-todo-confirm" style={{ visibility: selectedTodo !== null ? 'visible' : "hidden" }} onClick={()=>setSelectedTodo(null)}/>
             <div>
                 {mockData.map((mockItem, index) => (
                     <div ref={index === mockData.length - 1 ? scrollRef : null} key={index} className={`todo-card ${selectedTodo === index ? 'todo-card-active' : ''}`} onClick={() => setSelectedTodo(index)}>
