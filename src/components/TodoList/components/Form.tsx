@@ -1,32 +1,35 @@
-import { useState, ChangeEvent, forwardRef, useImperativeHandle, Ref } from 'react';
-import './TodoFrom.scss';
+import { useState, ChangeEvent, forwardRef, useImperativeHandle, Ref, useLayoutEffect } from 'react';
+import '../scss/TodoFrom.scss';
+import useScrollToElement from '@/hooks/useScrollToElement';
 
 export interface TodoFormData {
   title: string;
   content: string;
-  tag: string;
+  tags: string;
   priority: string;
 }
 export interface TodoFormRef {
   getFormData(): TodoFormData
+
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const TodoForm = forwardRef((_, ref: Ref<TodoFormRef>) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [tag, setTag] = useState('');
+  const [tags, setTag] = useState('');
   const [priority, setPriority] = useState('');
 
-  const getFormData = () => {
-    return {
-      title,
-      content,
-      tag,
-      priority,
-    }
-  }
+  useScrollToElement('.todo-form')
+
   useImperativeHandle(ref, () => ({
-    getFormData
+    getFormData() {
+      return {
+        title,
+        content,
+        tags,
+        priority,
+      }
+    },
   }))
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -59,13 +62,12 @@ const TodoForm = forwardRef((_, ref: Ref<TodoFormRef>) => {
         id="content"
         placeholder='He needs vaccine shot too'
         value={content}
-        onChange={handleContentChange}
-      ></textarea>
+        onChange={handleContentChange} />
       <input
         type="text"
-        placeholder='Tags'
+        placeholder='Tags(支持以 、作为分隔生成多个Tag)'
         id="tags"
-        value={tag}
+        value={tags}
         onChange={handleTagsChange}
       />
       <div className='priority-button-group' >

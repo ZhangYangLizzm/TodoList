@@ -1,0 +1,49 @@
+$padding: 16px;
+
+.todo-card {
+    background-color: #fff;
+    margin-bottom: 32px;
+    border-radius: 10px;
+    width: 100%;
+    box-shadow: 0px 5px 5px rgba(180, 177, 177, 0.356);
+    transition: transform .2s cubic-bezier(0.39, 0.575, 0.565, 1);
+
+    &:hover,
+    &-active {
+        transform: scale(1.1);
+    }
+
+    .todo-card-header {
+        position: relative;
+        width: 100%;
+        padding: $padding;
+        border-bottom: 1px solid #f0f0f0;
+        box-sizing: border-box;
+
+        .todo-card-title {
+            font-size: large;
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        .todo-card-createdTime {
+            float: right;
+            vertical-align: text-bottom;
+        }
+    }
+
+    .todo-card-body {
+        padding: $padding;
+    }
+
+    .todo-card-footer {
+        display: flex;
+        padding: $padding;
+
+        .todo-card-tag {
+            border-radius: 8px;
+            padding: 5px 10px;
+            margin-right: 10px;
+        }
+    }
+}

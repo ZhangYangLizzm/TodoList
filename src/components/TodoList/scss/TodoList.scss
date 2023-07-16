@@ -1,0 +1,23 @@
+.todo-list {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    #icon-delete,
+    #icon-todo-confirm {
+        position: fixed;
+    }
+
+    #icon-delete {
+        left: 100px;
+    }
+
+    #icon-todo-confirm {
+        right: 100px;
+    }
+
+    &-container {
+        width: 500px;
+    }
+
+}
