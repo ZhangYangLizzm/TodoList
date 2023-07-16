@@ -13,12 +13,17 @@ const Todocard: React.FC<TodoCardProps> = ({ title, content, priority, tags, exp
     }
     return (
         < >
-            <span className='todo-card-title'>{title}</span>
-            <span className='todo-card-createdTime'>创建:{createdTime}</span>
+            <div className='todo-card-header'>
+                <span className='todo-card-title'>{title}</span>
+                <span className='todo-card-createdTime'>创建:{createdTime}</span>
+            </div>
+
             {
                 expanded && <>
-                    <p>{content}</p>
-                    <div className='todo-card-tags'>
+                    <div className='todo-card-body'>
+                        <p>{content}</p>
+                    </div>
+                    <div className='todo-card-footer'>
                         <Tag type="priority" text={priority} />
                         {tagsRender()}
                     </div>
