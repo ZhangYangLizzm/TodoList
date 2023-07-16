@@ -10,22 +10,15 @@ import { deleteTodo, searchTodo } from '@/store/todoSlice';
 import { useAppDispatch, useAppSelector } from '@/store/storehook';
 import { TodoListProps } from '../../types';
 import "./scss/TodoList.scss"
+import useLocalStorage from '@/hooks/useLocalStorage';
 const TodoList: React.FC<TodoListProps> = ({ children }) => {
     const dispatch = useAppDispatch()
     const todoList = useAppSelector(state => state.todo.todos)
     const [selectedTodo, setSelectedTodo] = useState<number | null>(null);
-    const [expanded, setExpanded] = useState(true)
+    const [expanded, setExpanded] = useLocalStorage('todo-expanded', true)
     const [searchValue, setSearchValue] = useState("")
     const searchResults = useAppSelector(state => state.todo.searchResults)
-    const scrollRef = useRef<HTMLDivElement>(null);
-    useEffect(() => {
-        if (scrollRef.current) {
-            scrollRef.current.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start',
-            });
-        }
-    }, [todoList]);
+
     const onChange = (value: string) => {
         setSearchValue(value)
         dispatch(searchTodo(value))
@@ -42,13 +35,13 @@ const TodoList: React.FC<TodoListProps> = ({ children }) => {
 
             }
             return searchResults.map((todoItem, index) => (
-                <div ref={index === todoList.length - 1 ? scrollRef : null} key={index} className={`todo-card ${selectedTodo === index ? 'todo-card-active' : ''}`} onClick={() => setSelectedTodo(index)}>
+                <div key={index} className={`todo-card ${selectedTodo === index ? 'todo-card-active' : ''}`} onClick={() => setSelectedTodo(index)}>
                     <Todocard {...todoItem} expanded={expanded} />
                 </div>
             ))
         }
         return todoList.map((todoItem, index) => (
-            <div ref={index === todoList.length - 1 ? scrollRef : null} key={index} className={`todo-card ${selectedTodo === index ? 'todo-card-active' : ''}`} onClick={() => setSelectedTodo(index)}>
+            <div key={index} className={`todo-card ${selectedTodo === index ? 'todo-card-active' : ''}`} onClick={() => setSelectedTodo(index)}>
                 <Todocard {...todoItem} expanded={expanded} />
             </div>
         ))
@@ -58,8 +51,8 @@ const TodoList: React.FC<TodoListProps> = ({ children }) => {
             <IconDelete id="icon-delete" style={{ visibility: selectedTodo !== null ? 'visible' : "hidden" }} onClick={() => onDelete()} />
             <IconTodoConfirm id="icon-todo-confirm" style={{ visibility: selectedTodo !== null ? 'visible' : "hidden" }} onClick={() => setSelectedTodo(null)} />
             <div className='todo-list-container'>
-                <div style={{display:"flex",marginBottom:"32px"}}>
-                    <Button onClick={() => setExpanded(!expanded)} style={{marginInlineEnd:"16px"}}>全部折叠</Button>
+                <div style={{ display: "flex", marginBottom: "32px" }}>
+                    <Button onClick={() => setExpanded(!expanded)} style={{ marginInlineEnd: "16px" }}>全部折叠</Button>
                     <Input placeholder='You can input to search todo title here!' prefix={<SearchOutlined />} onChange={(e) => onChange(e.target.value)} />
                 </div>
                 {renderTodoList()}

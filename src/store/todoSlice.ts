@@ -48,6 +48,12 @@ const todoSlice = createSlice({
     clearSearchResults: (state) => {
       state.searchResults = state.todos;
     },
+    setAllTodosExpanded: (state, value: PayloadAction<boolean>) => {
+      state.todos = state.todos.map((todo) => ({
+        ...todo,
+        expanded: value,
+      }));
+    },
   },
 });
 

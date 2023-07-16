@@ -8,13 +8,12 @@ import "./App.scss"
 import { addTodo } from "./store/todoSlice"
 import { useAppDispatch } from "./store/storehook"
 function App() {
-
+  const dispatch = useAppDispatch()
   const [isAdding, setIsAdding] = useState(false)
   const todoFormRef = useRef<TodoFormRef>(null)
   const onAdd = () => {
     setIsAdding(true)
   }
-  const dispatch = useAppDispatch()
   const onConfirm = () => {
     const formData = todoFormRef.current?.getFormData() // 调用子组件的方法获取表单数据
     if (formData) {

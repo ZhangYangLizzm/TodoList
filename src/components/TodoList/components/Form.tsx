@@ -1,5 +1,6 @@
-import { useState, ChangeEvent, forwardRef, useImperativeHandle, Ref } from 'react';
+import { useState, ChangeEvent, forwardRef, useImperativeHandle, Ref, useLayoutEffect } from 'react';
 import '../scss/TodoFrom.scss';
+import useScrollToElement from '@/hooks/useScrollToElement';
 
 export interface TodoFormData {
   title: string;
@@ -9,6 +10,7 @@ export interface TodoFormData {
 }
 export interface TodoFormRef {
   getFormData(): TodoFormData
+
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const TodoForm = forwardRef((_, ref: Ref<TodoFormRef>) => {
@@ -17,16 +19,17 @@ const TodoForm = forwardRef((_, ref: Ref<TodoFormRef>) => {
   const [tags, setTag] = useState('');
   const [priority, setPriority] = useState('');
 
-  const getFormData = () => {
-    return {
-      title,
-      content,
-      tags,
-      priority,
-    }
-  }
+  useScrollToElement('.todo-form')
+
   useImperativeHandle(ref, () => ({
-    getFormData
+    getFormData() {
+      return {
+        title,
+        content,
+        tags,
+        priority,
+      }
+    },
   }))
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
