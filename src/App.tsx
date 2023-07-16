@@ -1,33 +1,28 @@
 import { useRef, useState } from "react"
-import TodoList from './components/TodoList/TodoList'
+import TodoList from './components/TodoList'
 import { IconAdd, IconConfirm, IconCancel } from '@/components/Icon'
-import TodoForm, { TodoFormData, TodoFormRef } from "./components/TodoCard/TodoForm"
+import TodoForm, { TodoFormRef } from "@/components/TodoList/components/Form"
 import Header from "./layout/Header"
 import Footer from "./layout/Footer"
-import useTodoStore from "./store"
 import "./App.scss"
+import { addTodo } from "./store/todoSlice"
+import { useAppDispatch } from "./store/storehook"
 function App() {
-  const { getTodoList, addTodo, deleteTodo } = useTodoStore()
-  const todoList = getTodoList()
+
   const [isAdding, setIsAdding] = useState(false)
   const todoFormRef = useRef<TodoFormRef>(null)
   const onAdd = () => {
     setIsAdding(true)
   }
-
+  const dispatch = useAppDispatch()
   const onConfirm = () => {
     const formData = todoFormRef.current?.getFormData() // 调用子组件的方法获取表单数据
     if (formData) {
-      for (const key in formData) {
-        if (!formData[key as keyof TodoFormData]) {
-          alert('请填写所有字段')
-          return
-        }
-      }
-      addTodo({
+      dispatch(addTodo({
         ...formData,
-        priority: `P${formData.priority}`
-      }) // 在父组件中添加待办事项
+        priority: `P${formData.priority}`,
+        createdTime: new Date().toLocaleDateString()
+      })) // 在父组件中添加待办事项
     }
     setIsAdding(false)
   }
@@ -53,7 +48,7 @@ function App() {
       <Header />
       <main className="app-main">
         <h1 className='app-main-title'>Daily Todo</h1>
-        <TodoList todoList={todoList} deleteTodo={deleteTodo}>
+        <TodoList  >
           {isAdding ? <TodoForm ref={todoFormRef} /> : null}
         </TodoList>
       </main>

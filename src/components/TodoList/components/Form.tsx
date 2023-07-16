@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, forwardRef, useImperativeHandle, Ref } from 'react';
-import './TodoFrom.scss';
+import '../scss/TodoFrom.scss';
 
 export interface TodoFormData {
   title: string;

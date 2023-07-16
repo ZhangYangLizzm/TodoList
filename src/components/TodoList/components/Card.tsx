@@ -1,8 +1,8 @@
 import React from 'react'
-import Tag from '../Tag/Tag'
-import { TodoCardProps } from '../../types'
-
-const Todocard: React.FC<TodoCardProps> = ({ title, content, priority, tags, expanded }) => {
+import Tag from './Tag'
+import { TodoCardProps } from '../../../types'
+import "../scss/TodoCard.scss"
+const Todocard: React.FC<TodoCardProps> = ({ title, content, priority, tags, expanded, createdTime }) => {
     const tagsRender = () => {
         if (tags && tags.includes('、')) {
             return tags.split('、').map((tag, index) =>
@@ -13,11 +13,12 @@ const Todocard: React.FC<TodoCardProps> = ({ title, content, priority, tags, exp
     }
     return (
         < >
-            <h2>{title}</h2>
+            <span className='todo-card-title'>{title}</span>
+            <span className='todo-card-createdTime'>创建:{createdTime}</span>
             {
                 expanded && <>
                     <p>{content}</p>
-                    <div className='todo-tags'>
+                    <div className='todo-card-tags'>
                         <Tag type="priority" text={priority} />
                         {tagsRender()}
                     </div>

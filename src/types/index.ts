@@ -1,15 +1,16 @@
-import { ReactNode } from 'react';
-
-export interface TodoCardProps {
+import { ReactNode } from "react";
+export interface TodoItem {
   title: string;
   content: string;
-  priority: string
+  priority: string;
   tags: string;
-  expanded:boolean
+  createdTime: string;
+}
+export type TodoList = TodoItem[];
+export interface TodoCardProps extends TodoItem {
+  expanded: boolean;
 }
 
 export interface TodoListProps {
-  todoList: TodoCardProps[]
-  children: ReactNode,
-  deleteTodo: (index: number) => void
+  children: ReactNode;
 }
